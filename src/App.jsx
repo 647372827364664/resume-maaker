@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Download, FileText, LayoutTemplate } from 'lucide-react';
+import { Download, FileText, LayoutTemplate, Loader2 } from 'lucide-react';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
 import html2pdf from 'html2pdf.js';
@@ -106,23 +106,44 @@ function App() {
     localStorage.setItem('isCVMode_ekta', isCVMode);
   }, [isCVMode]);
 
+  const [fontFamily, setFontFamily] = useState(() => {
+    return localStorage.getItem('fontFamily_ekta') || 'Inter';
+  });
+
+  const [fontSize, setFontSize] = useState(() => {
+    return localStorage.getItem('fontSize_ekta') || 'medium';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('fontFamily_ekta', fontFamily);
+  }, [fontFamily]);
+
+  useEffect(() => {
+    localStorage.setItem('fontSize_ekta', fontSize);
+  }, [fontSize]);
+
+  const [exportLoading, setExportLoading] = useState(false);
+
   const previewRef = useRef(null);
 
-  const handleExportPdf = () => {
+  const handleExportPdf = async () => {
     if (!previewRef.current) return;
+    setExportLoading(true);
     
     const element = previewRef.current;
     
     if (isCVMode) {
       // Standard multi-page PDF export using html2pdf
       const opt = {
-        margin:       10,
+        margin:       0,
         filename:     'AestheticCV.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
-      html2pdf().set(opt).from(element).save();
+      await html2pdf().set(opt).from(element).save();
+      setExportLoading(false);
     } else {
       // Temporarily remove print-scaling limits by configuring html2pdf
       // Use html2canvas directly to capture the image, then add it to jsPDF manually
@@ -168,8 +189,10 @@ function App() {
                 // Save as blob
                 const pdfBlob = pdf.output('blob');
                 downloadBlob(pdfBlob, 'AestheticResume.pdf');
+                setExportLoading(false);
             }).catch(err => {
                 console.error("PDF generation failed:", err);
+                setExportLoading(false);
             });
         });
       });
@@ -177,7 +200,13 @@ function App() {
   };
 
   const handleExportDocx = async () => {
-    await exportToDocx(resumeData);
+    setExportLoading(true);
+    try {
+      await exportToDocx(resumeData);
+    } catch (err) {
+      console.error('DOCX export failed:', err);
+    }
+    setExportLoading(false);
   };
 
   return (
@@ -195,25 +224,49 @@ function App() {
           setSelectedTemplate={setSelectedTemplate}
           isCVMode={isCVMode}
           setIsCVMode={setIsCVMode}
+          fontFamily={fontFamily}
+          setFontFamily={setFontFamily}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
         />
       </div>
 
       <div className="preview-panel">
         <div className="export-actions">
-          <button className="btn btn-outline" onClick={handleExportDocx}>
-            <FileText size={18} />
+          <button className="btn btn-outline" onClick={handleExportDocx} disabled={exportLoading}>
+            {exportLoading ? <Loader2 size={18} className="spin-icon" /> : <FileText size={18} />}
             Export DOCX
           </button>
-          <button className="btn btn-primary" onClick={handleExportPdf}>
-            <Download size={18} />
+          <button className="btn btn-primary" onClick={handleExportPdf} disabled={exportLoading}>
+            {exportLoading ? <Loader2 size={18} className="spin-icon" /> : <Download size={18} />}
             Export PDF
           </button>
         </div>
 
-        <div className="resume-wrapper" data-template={selectedTemplate}>
-          <Preview data={resumeData} selectedTemplate={selectedTemplate} ref={previewRef} isCVMode={isCVMode} />
+        <div className="resume-wrapper" data-template={selectedTemplate} data-cv-mode={isCVMode.toString()}>
+          <Preview data={resumeData} selectedTemplate={selectedTemplate} ref={previewRef} isCVMode={isCVMode} fontFamily={fontFamily} fontSize={fontSize} />
         </div>
       </div>
+
+      {/* Export Loading Overlay */}
+      {exportLoading && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.3)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999,
+          backdropFilter: 'blur(4px)'
+        }}>
+          <div style={{
+            background: 'white', borderRadius: '16px', padding: '2rem 3rem',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem',
+            boxShadow: '0 25px 50px rgba(0,0,0,0.25)'
+          }}>
+            <Loader2 size={36} className="spin-icon" style={{ color: 'var(--primary)' }} />
+            <span style={{ fontWeight: 600, fontSize: '1.1rem' }}>Generating your document...</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

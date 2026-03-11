@@ -192,7 +192,7 @@ body::after {
   box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25), 0 0 0 1px var(--glass-border);
   border-radius: 8px;
   color: #1e293b;
-  overflow: hidden;
+  overflow: visible;
   transform-origin: top center;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -200,6 +200,55 @@ body::after {
 
 .resume-wrapper:hover {
   box-shadow: 0 30px 60px -15px rgba(213, 63, 140, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Page Break Indicator for CV Mode */
+.resume-wrapper[data-cv-mode="true"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -20px;
+  right: -20px;
+  bottom: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(297mm - 1px),
+    transparent calc(297mm - 1px),
+    transparent 297mm
+  );
+  z-index: 100;
+}
+
+/* Page break separator line */
+.resume-wrapper[data-cv-mode="true"] {
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent calc(297mm - 1px),
+      rgba(213, 63, 140, 0.35) calc(297mm - 1px),
+      rgba(213, 63, 140, 0.35) 297mm
+    ),
+    white;
+}
+
+/* Spin animation for loading icons */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+/* Disabled button styles */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 @media print {

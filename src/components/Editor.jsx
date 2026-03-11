@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, Trash2, ArrowUp, ArrowDown, Image as ImageIcon } from 'lucide-react';
 
-const Editor = ({ resumeData, setResumeData, selectedTemplate, setSelectedTemplate, isCVMode, setIsCVMode }) => {
+const Editor = ({ resumeData, setResumeData, selectedTemplate, setSelectedTemplate, isCVMode, setIsCVMode, fontFamily, setFontFamily, fontSize, setFontSize }) => {
     const handlePersonalInfoChange = (e) => {
         const { name, value } = e.target;
         setResumeData((prev) => ({
@@ -116,6 +116,56 @@ const Editor = ({ resumeData, setResumeData, selectedTemplate, setSelectedTempla
                     </select>
                 </div>
             </div>
+
+            {/* Typography Settings */}
+            <div className="section-card">
+                <h2 className="section-title">Typography</h2>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div className="form-group" style={{ flex: 1 }}>
+                        <label>Font Family</label>
+                        <select 
+                            className="form-control" 
+                            value={fontFamily} 
+                            onChange={(e) => setFontFamily(e.target.value)}
+                            style={{ cursor: 'pointer', appearance: 'auto' }}
+                        >
+                            <option value="Inter">Inter (Modern)</option>
+                            <option value="Outfit">Outfit (Clean)</option>
+                            <option value="Georgia">Georgia (Classic)</option>
+                            <option value="Times New Roman">Times New Roman (Formal)</option>
+                            <option value="Montserrat">Montserrat (Elegant)</option>
+                            <option value="Playfair Display">Playfair Display (Artistic)</option>
+                        </select>
+                    </div>
+                    <div className="form-group" style={{ flex: 1 }}>
+                        <label>Font Size</label>
+                        <div style={{ display: 'flex', gap: '0.4rem', background: '#fff', padding: '4px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                            {['small', 'medium', 'large'].map(size => (
+                                <button
+                                    key={size}
+                                    onClick={() => setFontSize(size)}
+                                    style={{
+                                        flex: 1,
+                                        padding: '0.5rem 0.75rem',
+                                        border: 'none',
+                                        background: fontSize === size ? 'var(--primary)' : 'transparent',
+                                        color: fontSize === size ? '#fff' : 'var(--text-main)',
+                                        borderRadius: '6px',
+                                        fontWeight: 600,
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        fontSize: '0.85rem',
+                                        textTransform: 'capitalize'
+                                    }}
+                                >
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Personal Info */}
             <div className="section-card">
                 <h2 className="section-title">Personal Information</h2>

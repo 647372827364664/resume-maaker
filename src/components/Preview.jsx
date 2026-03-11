@@ -1,7 +1,11 @@
 import React, { forwardRef } from 'react';
 
-const Preview = forwardRef(({ data, selectedTemplate, isCVMode }, ref) => {
+const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, fontSize }, ref) => {
     const { personalInfo, experience, education, skills, projects, certifications, languages } = data;
+
+    // Font size scale factor
+    const sizeScale = fontSize === 'small' ? 0.88 : fontSize === 'large' ? 1.12 : 1.0;
+    const userFont = fontFamily ? `'${fontFamily}', sans-serif` : undefined;
 
     // Define colors and fonts based on selected template
     const getThemeStyles = () => {
@@ -89,7 +93,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode }, ref) => {
                     minHeight: 'var(--a4-height)',
                     background: theme.bgImage || theme.bg,
                     border: theme.border || 'none',
-                    fontFamily: theme.fontBody,
+                    fontFamily: userFont || theme.fontBody,
+                    fontSize: `${sizeScale}rem`,
                     color: theme.text,
                     boxSizing: 'border-box',
                     display: 'flex',
@@ -325,7 +330,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode }, ref) => {
                     minHeight: 'var(--a4-height)',
                     background: theme.bgImage || theme.bg,
                     border: theme.border || 'none',
-                    fontFamily: theme.fontBody,
+                    fontFamily: userFont || theme.fontBody,
+                    fontSize: `${sizeScale}rem`,
                     color: theme.text,
                     boxSizing: 'border-box',
                     display: 'flex',
@@ -607,7 +613,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode }, ref) => {
                 padding: selectedTemplate === 'minimal' ? '4rem' : '3rem',
                 background: theme.bgImage || theme.bg,
                 border: theme.border || 'none',
-                fontFamily: theme.fontBody,
+                fontFamily: userFont || theme.fontBody,
+                fontSize: `${sizeScale}rem`,
                 color: theme.text,
                 boxSizing: 'border-box',
                 display: 'flex',
