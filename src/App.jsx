@@ -56,6 +56,22 @@ function App() {
       education: [
         {
           id: 1,
+          school: 'Maharani\'s College, University of Rajasthan, Jaipur',
+          degree: 'M.A. (Sociology) — Second Division',
+          startDate: '2022',
+          endDate: '2024',
+          description: 'Completed M.A. (Final) in Sociology with 456/900 marks. Papers: Contemporary Sociological Theories, Social Thinkers, Studies on Indian Society, Population Studies, Political Sociology.',
+        },
+        {
+          id: 2,
+          school: 'University of Rajasthan, Jaipur (Non-Collegiate)',
+          degree: 'B.A. (Bachelor of Arts)',
+          startDate: '2019',
+          endDate: '2022',
+          description: 'Completed Bachelor of Arts degree with 828/1800 marks. Three-year undergraduate programme from the University of Rajasthan.',
+        },
+        {
+          id: 3,
           school: 'Yogapeace Sansthan (YCB Accredited)',
           degree: '1000 Hours Advanced Yoga Therapy Master Course',
           startDate: 'Oct 2022',
@@ -63,26 +79,82 @@ function App() {
           description: 'Successfully completed the comprehensive Advanced Yoga Therapy Master Course, signifying high-level expertise in therapeutic yoga applications.',
         },
         {
-          id: 2,
+          id: 4,
           school: 'Yogapeace Sansthan (YCB Accredited)',
           degree: '250 Hours Fitness Yoga Coach',
           startDate: 'Sept 2022',
           endDate: 'Oct 2022',
           description: 'Accredited Yoga Fitness Coach, dedicated to serving mankind and taking them on the path of Health to Happiness.',
+        }
+      ],
+      projects: [
+        {
+          id: 1,
+          name: 'YouTube Dance Channel — @imekta',
+          role: 'Creator & Choreographer',
+          startDate: '2019',
+          endDate: 'Present',
+          link: 'https://youtube.com/@imekta',
+          description: 'Built and managed a YouTube channel from scratch to 1.2 Lakh+ subscribers. Produced 200+ dance covers, tutorials, and choreography videos across Bollywood, Semi-Classical, Folk, and Contemporary styles. Achieved millions of views and strong community engagement.',
+        },
+        {
+          id: 2,
+          name: 'Yoga Mahotsav 2023 — Yoga Motivator Campaign',
+          role: 'Lead Yoga Prerak (Motivator)',
+          startDate: 'June 2023',
+          endDate: 'June 2023',
+          link: '',
+          description: 'Led yoga awareness and motivation sessions during the Nagar Nigam Greater Jaipur Yoga Mahotsav 2023. Received Prashasti Patra (Certificate of Appreciation) for outstanding contribution and community impact.',
         },
         {
           id: 3,
-          school: 'Nagar Nigam, Greater Jaipur',
-          degree: 'Yoga Mahotsav 2023 Prashasti Patra',
-          startDate: 'June 2023',
-          endDate: 'June 2023',
-          description: 'Awarded a certificate of appreciation (Prashasti Patra) for outstanding contribution as a Yoga Motivator (Yog Prerak) during Yoga Mahotsav 2023.',
+          name: 'Holistic Dance & Yoga Workshop Series',
+          role: 'Organizer & Instructor',
+          startDate: '2021',
+          endDate: 'Present',
+          link: '',
+          description: 'Designed and conducted a blend of dance fitness and therapeutic yoga workshops for community centers and private groups. Integrated multiple dance styles with structured yoga flows for holistic well-being.',
         }
       ],
-      projects: [],
-      certifications: [],
-      languages: [],
-      skills: ['All Dance Styles', 'Choreography', '1000-Hr Yoga Therapy', 'Fitness Yoga Coaching', 'YouTube Content Creation', 'Teaching & Mentoring']
+      certifications: [
+        {
+          id: 1,
+          title: '1000 Hours Advanced Yoga Therapy Master Course',
+          issuer: 'Yogapeace Sansthan (YCB Accredited)',
+          date: 'Jan 2023',
+          link: '',
+        },
+        {
+          id: 2,
+          title: '250 Hours Fitness Yoga Coach',
+          issuer: 'Yogapeace Sansthan (YCB Accredited)',
+          date: 'Oct 2022',
+          link: '',
+        },
+        {
+          id: 3,
+          title: 'Prashasti Patra — Yoga Mahotsav 2023',
+          issuer: 'Nagar Nigam, Greater Jaipur',
+          date: 'June 2023',
+          link: '',
+        },
+        {
+          id: 4,
+          title: 'M.A. Sociology (University of Rajasthan)',
+          issuer: 'Maharani\'s College, Jaipur',
+          date: '2024',
+          link: '',
+        },
+        {
+          id: 5,
+          title: 'B.A. (University of Rajasthan)',
+          issuer: 'University of Rajasthan, Jaipur',
+          date: '2022',
+          link: '',
+        }
+      ],
+      languages: ['Hindi', 'English', 'Rajasthani'],
+      skills: ['All Dance Styles', 'Choreography', '1000-Hr Yoga Therapy', 'Fitness Yoga Coaching', 'YouTube Content Creation', 'Teaching & Mentoring', 'Sociology', 'Community Engagement']
     };
   });
 
