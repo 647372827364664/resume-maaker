@@ -204,71 +204,21 @@ function App() {
     
     const element = previewRef.current;
     
-    if (isCVMode) {
-      // Standard multi-page PDF export using html2pdf
+    try {
+      // Universal multi-page PDF export using html2pdf
       const opt = {
         margin:       0,
-        filename:     'AestheticCV.pdf',
+        filename:     isCVMode ? 'AestheticCV.pdf' : 'AestheticResume.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
       await html2pdf().set(opt).from(element).save();
-      setExportLoading(false);
-    } else {
-      // Temporarily remove print-scaling limits by configuring html2pdf
-      // Use html2canvas directly to capture the image, then add it to jsPDF manually
-      // This provides the most control over scaling everything onto exactly 1 page
-      import('html2canvas').then(({ default: html2canvas }) => {
-        import('jspdf').then(({ default: jsPDF }) => {
-            html2canvas(element, {
-                scale: 2,
-                useCORS: true,
-                letterRendering: true,
-                windowWidth: element.scrollWidth,
-                height: element.scrollHeight
-            }).then((canvas) => {
-                const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                
-                // A4 dimensions in mm
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                
-                // Calculate image dimensions to fit perfectly on A4
-                const imgProps = pdf.getImageProperties(imgData);
-                const imgRatio = imgProps.height / imgProps.width;
-                
-                const renderWidth = pdfWidth;
-                const renderHeight = pdfWidth * imgRatio;
-                
-                // If the height is too tall for 1 page, we just shrink it to fit!
-                let finalWidth = renderWidth;
-                let finalHeight = renderHeight;
-                
-                if (renderHeight > pdfHeight) {
-                    // It's too tall, scale down based on height to force 1 page
-                    finalHeight = pdfHeight;
-                    finalWidth = pdfHeight / imgRatio;
-                }
-                
-                // Center it horizontally if it got shrunk
-                const xOffset = (pdfWidth - finalWidth) / 2;
-                
-                pdf.addImage(imgData, 'JPEG', xOffset, 0, finalWidth, finalHeight);
-                
-                // Save as blob
-                const pdfBlob = pdf.output('blob');
-                downloadBlob(pdfBlob, 'AestheticResume.pdf');
-                setExportLoading(false);
-            }).catch(err => {
-                console.error("PDF generation failed:", err);
-                setExportLoading(false);
-            });
-        });
-      });
+    } catch (err) {
+      console.error('PDF generation failed:', err);
     }
+    setExportLoading(false);
   };
 
   const handleExportDocx = async () => {

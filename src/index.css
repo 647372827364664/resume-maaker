@@ -202,8 +202,8 @@ body::after {
   box-shadow: 0 30px 60px -15px rgba(213, 63, 140, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.8);
 }
 
-/* Page Break Indicator for CV Mode */
-.resume-wrapper[data-cv-mode="true"]::after {
+/* Page Break Indicator — always visible */
+.resume-wrapper::after {
   content: '';
   position: absolute;
   top: 0;
@@ -215,14 +215,14 @@ body::after {
     to bottom,
     transparent,
     transparent calc(297mm - 1px),
-    transparent calc(297mm - 1px),
-    transparent 297mm
+    rgba(213, 63, 140, 0.4) calc(297mm - 1px),
+    rgba(213, 63, 140, 0.4) 297mm
   );
   z-index: 100;
 }
 
-/* Page break separator line */
-.resume-wrapper[data-cv-mode="true"] {
+/* Page break separator line on wrapper background */
+.resume-wrapper {
   background: 
     repeating-linear-gradient(
       to bottom,

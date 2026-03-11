@@ -100,8 +100,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    overflow: isCVMode ? 'visible' : 'hidden',
-                    height: isCVMode ? 'auto' : undefined
+                    overflow: 'visible',
+                    height: 'auto'
                 }}
             >
                 <style>{FONT_IMPORTS}</style>
@@ -336,8 +336,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                     boxSizing: 'border-box',
                     display: 'flex',
                     position: 'relative',
-                    overflow: isCVMode ? 'visible' : 'hidden',
-                    height: isCVMode ? 'auto' : undefined
+                    overflow: 'visible',
+                    height: 'auto'
                 }}
             >
                 {/* Decorative SVG */}
@@ -621,8 +621,8 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                 flexDirection: 'column',
                 gap: selectedTemplate === 'minimal' ? '2.5rem' : '2rem',
                 position: 'relative',
-                overflow: isCVMode ? 'visible' : 'hidden',
-                height: isCVMode ? 'auto' : undefined
+                overflow: 'visible',
+                height: 'auto'
             }}
         >
             {/* Decorative SVG for Modern template */}
