@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, fontSize }, ref) => {
+const Preview = forwardRef(({ data, selectedTemplate, fontFamily, fontSize }, ref) => {
     const { personalInfo, experience, education, skills, projects, certifications, languages } = data;
 
     // Font size scale factor
@@ -100,7 +100,7 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    overflow: 'visible',
+                    overflow: 'hidden',
                     height: 'auto'
                 }}
             >
@@ -336,7 +336,7 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                     boxSizing: 'border-box',
                     display: 'flex',
                     position: 'relative',
-                    overflow: 'visible',
+                    overflow: 'hidden',
                     height: 'auto'
                 }}
             >
@@ -621,7 +621,7 @@ const Preview = forwardRef(({ data, selectedTemplate, isCVMode, fontFamily, font
                 flexDirection: 'column',
                 gap: selectedTemplate === 'minimal' ? '2.5rem' : '2rem',
                 position: 'relative',
-                overflow: 'visible',
+                overflow: 'hidden',
                 height: 'auto'
             }}
         >

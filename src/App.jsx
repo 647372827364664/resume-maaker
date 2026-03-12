@@ -4,12 +4,11 @@ import Editor from './components/Editor';
 import Preview from './components/Preview';
 import html2pdf from 'html2pdf.js';
 import { exportToDocx } from './utils/exportDocx';
-import { downloadBlob } from './utils/downloadBlob';
 import './index.css';
 
 function App() {
   const [resumeData, setResumeData] = useState(() => {
-    const saved = localStorage.getItem('resumeData_ekta_final');
+    const saved = localStorage.getItem('resumeData_ekta_single_page');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -30,9 +29,9 @@ function App() {
         title: 'Dance Instructor & Yoga Master',
         email: 'im.ekta.gangwani@gmail.com',
         phone: '7413004607',
-        location: 'B-97 Ramngariya, Near SKIT College, Jagatpura, Jaipur',
-        website: 'youtube.com/@imekta (1.2 Lakh+ Subs)',
-        summary: 'Versatile and passionate Dance Instructor and Yoga Master with extensive experience in various dance forms and structural yoga therapies. Proud creator of a thriving YouTube community with over 1.2 Lakh subscribers for dance content. Certified in advanced yoga therapies (1000 Hrs) and fitness coaching (250 Hrs), dedicated to promoting holistic health and happiness through movement and mindfulness. Known as an all-rounder in all types of dance and recognized for exemplary contribution to Yoga.',
+        location: 'Jaipur, Rajasthan',
+        website: 'youtube.com/@imekta',
+        summary: 'Passionate Dance Instructor & Yoga Master. Creator of a 1.2 Lakh+ YouTube community. Dedicated to holistic health through movement and mindfulness.',
         profilePicture: '',
       },
       experience: [
@@ -42,7 +41,7 @@ function App() {
           role: 'Professional Dancer & Choreographer',
           startDate: '2019',
           endDate: 'Present',
-          description: 'Manages a highly successful YouTube channel with over 1.2 Lakh (120,000+) subscribers. Creates engaging dance covers, tutorials, and choreography videos spanning multiple dance styles. Recognized as an all-rounder with expertise in all types of dance.',
+          description: 'Manage a successful YouTube channel (1.2 Lakh+ subs); produce engaging dance covers and tutorials across multiple styles.',
         },
         {
           id: 2,
@@ -50,111 +49,65 @@ function App() {
           role: 'Dance & Yoga Instructor',
           startDate: '2018',
           endDate: 'Present',
-          description: 'Provides comprehensive instruction in diverse dance forms and yoga disciplines. Focuses on holistic development, combining rhythmic movement with structured fitness yoga to enhance physical and mental well-being.',
+          description: 'Provide instruction in diverse dance forms and structured fitness yoga for physical and mental well-being.',
         }
       ],
       education: [
         {
           id: 1,
-          school: 'Maharani\'s College, University of Rajasthan, Jaipur',
-          degree: 'M.A. (Sociology) — Second Division',
+          school: "Maharani's College, Jaipur",
+          degree: 'M.A. (Sociology)',
           startDate: '2022',
           endDate: '2024',
-          description: 'Completed M.A. (Final) in Sociology with 456/900 marks. Papers: Contemporary Sociological Theories, Social Thinkers, Studies on Indian Society, Population Studies, Political Sociology.',
+          description: 'Focused on contemporary theories and Indian society.',
         },
         {
           id: 2,
-          school: 'University of Rajasthan, Jaipur (Non-Collegiate)',
-          degree: 'B.A. (Bachelor of Arts)',
-          startDate: '2019',
-          endDate: '2022',
-          description: 'Completed Bachelor of Arts degree with 828/1800 marks. Three-year undergraduate programme from the University of Rajasthan.',
-        },
-        {
-          id: 3,
-          school: 'Yogapeace Sansthan (YCB Accredited)',
-          degree: '1000 Hours Advanced Yoga Therapy Master Course',
-          startDate: 'Oct 2022',
-          endDate: 'Jan 2023',
-          description: 'Successfully completed the comprehensive Advanced Yoga Therapy Master Course, signifying high-level expertise in therapeutic yoga applications.',
-        },
-        {
-          id: 4,
-          school: 'Yogapeace Sansthan (YCB Accredited)',
-          degree: '250 Hours Fitness Yoga Coach',
-          startDate: 'Sept 2022',
-          endDate: 'Oct 2022',
-          description: 'Accredited Yoga Fitness Coach, dedicated to serving mankind and taking them on the path of Health to Happiness.',
+          school: 'Yogapeace Sansthan (YCB)',
+          degree: 'Advanced Yoga Therapy (1000 Hrs) & Fitness Coach (250 Hrs)',
+          startDate: '2022',
+          endDate: '2023',
+          description: 'Demonstrating high-level expertise in therapeutic yoga applications.',
         }
       ],
       projects: [
         {
           id: 1,
-          name: 'YouTube Dance Channel — @imekta',
+          name: 'YouTube Dance Channel',
           role: 'Creator & Choreographer',
           startDate: '2019',
           endDate: 'Present',
-          link: 'https://youtube.com/@imekta',
-          description: 'Built and managed a YouTube channel from scratch to 1.2 Lakh+ subscribers. Produced 200+ dance covers, tutorials, and choreography videos across Bollywood, Semi-Classical, Folk, and Contemporary styles. Achieved millions of views and strong community engagement.',
+          link: 'youtube.com/@imekta',
+          description: 'Produced 200+ videos, achieving millions of views and strong community engagement.',
         },
         {
           id: 2,
-          name: 'Yoga Mahotsav 2023 — Yoga Motivator Campaign',
-          role: 'Lead Yoga Prerak (Motivator)',
-          startDate: 'June 2023',
-          endDate: 'June 2023',
-          link: '',
-          description: 'Led yoga awareness and motivation sessions during the Nagar Nigam Greater Jaipur Yoga Mahotsav 2023. Received Prashasti Patra (Certificate of Appreciation) for outstanding contribution and community impact.',
-        },
-        {
-          id: 3,
-          name: 'Holistic Dance & Yoga Workshop Series',
-          role: 'Organizer & Instructor',
+          name: 'Yoga Mahotsav & Workshops',
+          role: 'Organiser & Lead Motivator',
           startDate: '2021',
           endDate: 'Present',
           link: '',
-          description: 'Designed and conducted a blend of dance fitness and therapeutic yoga workshops for community centers and private groups. Integrated multiple dance styles with structured yoga flows for holistic well-being.',
+          description: 'Led yoga awareness sessions and conducted holistic dance fitness workshops for community centers.',
         }
       ],
       certifications: [
         {
           id: 1,
-          title: '1000 Hours Advanced Yoga Therapy Master Course',
-          issuer: 'Yogapeace Sansthan (YCB Accredited)',
-          date: 'Jan 2023',
+          title: '1000 Hrs Advanced Yoga Therapy',
+          issuer: 'Yogapeace Sansthan',
+          date: '2023',
           link: '',
         },
         {
           id: 2,
-          title: '250 Hours Fitness Yoga Coach',
-          issuer: 'Yogapeace Sansthan (YCB Accredited)',
-          date: 'Oct 2022',
-          link: '',
-        },
-        {
-          id: 3,
-          title: 'Prashasti Patra — Yoga Mahotsav 2023',
-          issuer: 'Nagar Nigam, Greater Jaipur',
-          date: 'June 2023',
-          link: '',
-        },
-        {
-          id: 4,
-          title: 'M.A. Sociology (University of Rajasthan)',
-          issuer: 'Maharani\'s College, Jaipur',
-          date: '2024',
-          link: '',
-        },
-        {
-          id: 5,
-          title: 'B.A. (University of Rajasthan)',
-          issuer: 'University of Rajasthan, Jaipur',
-          date: '2022',
+          title: 'Prashasti Patra (Appreciation)',
+          issuer: 'Nagar Nigam, Jaipur',
+          date: '2023',
           link: '',
         }
       ],
-      languages: ['Hindi', 'English', 'Rajasthani'],
-      skills: ['All Dance Styles', 'Choreography', '1000-Hr Yoga Therapy', 'Fitness Yoga Coaching', 'YouTube Content Creation', 'Teaching & Mentoring', 'Sociology', 'Community Engagement']
+      languages: ['Hindi', 'English'],
+      skills: ['Choreography', 'Yoga Therapy', 'Content Creation', 'Teaching', 'Fitness Coaching']
     };
   });
 
@@ -167,7 +120,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem('resumeData_ekta_final', JSON.stringify(resumeData));
+    localStorage.setItem('resumeData_ekta_single_page', JSON.stringify(resumeData));
   }, [resumeData]);
 
   useEffect(() => {
